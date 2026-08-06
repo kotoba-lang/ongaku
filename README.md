@@ -95,6 +95,33 @@ The legacy `:ongakuka.catalog/assets` key is also read. Production catalogs
 (asset lists, channel rosters) are business data and stay in their private
 repos; tests here use a synthetic fixture.
 
+## Holdings — 使用許諾は「渡せる権利」ではない
+
+`ongaku.policy` が答えるのは『自分がどう使ってよいか』、`ongaku.holdings` が
+答えるのは『**依頼主に何を渡せるか**』。この 2 つは別物で、**使用許諾を
+持っていることは、それを他人に渡せることを意味しない。**
+
+```clojure
+(require '[ongaku.holdings :as holdings])
+
+(holdings/grantable-rights dova-asset)      ;; => []  何も渡せない
+(holdings/grantable-rights cc-by-asset)     ;; => [非独占 :sync 1 件のみ]
+(holdings/grantable-rights {:asset/id "x"}) ;; => []  ライセンス未記載 = fail-closed
+```
+
+| license | 渡せるもの | なぜ |
+|---|---|---|
+| `:license/dova-syndrome-license` | **なし** | 自分の動画等での使用許諾。原盤の再配布・サブライセンスは認められていない |
+| `:license/cc-by-4.0` | 非独占 `:sync` のみ | 再配布・改変は認められる（帰属表示が条件）。ただし §2(a)(5)(A) で下流の受領者は原ライセンサから直接ライセンスを受けるので、**独占は原理的に渡せない** |
+
+`license-holdings` は**人が維持する法的判断**であって、実装がライセンス本文を
+解釈して導いたものではない。各エントリは根拠（`:basis`）・確認日（`:checked`）・
+出典（`:source-url`）を必ず持ち、テストがそれを強制する。
+
+**未知のライセンスと未記載はどちらも `[]`。** 判断が無いことを「制限が無い」と
+読み替えない。`explain` が理由を人が読める形で返すので、受注が `:not-held` で
+落ちたときにそれを提示できる。
+
 ## Occupation
 
 ISCO-08 `2652` (Musicians, Singers and Composers) —
