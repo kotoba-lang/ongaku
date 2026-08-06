@@ -21,7 +21,13 @@
 (def provenances
   {:authored  "人が kami-ongaku-* stack で書いた"
    :generated "ai.gftd.ongakuka.compose が生成した"
-   :hybrid    "生成物を人が DAW で手直しした"})
+   :hybrid    "生成物を人が DAW で手直しした"
+   ;; カタログから license を受けて持っているだけの第三者録音。手元に在るのは
+   ;; ミックス済みの音声 1 本で、stem も譜面も DAW セッションも**この studio の
+   ;; 手元には無い**（作った人のところには在るだろうが、それは別の話）。
+   ;; 何を「渡せる」かは provenance ではなく `ongaku.holdings` が別に決める ——
+   ;; provenance が答えるのは「どの成果物が実在するか」だけ。
+   :licensed  "第三者の録音を license で使っている（手元にあるのは音声のみ）"})
 
 (def deliverable-kinds
   "納品物の種別と、その正本を持つ craft library。"
@@ -36,10 +42,12 @@
 
   `:generated` に `:score` / `:midi` / `:session` が無いのは方針ではなく
   事実 — 生成パイプラインの出力は音声と stems だけで、譜面や MIDI は
-  そもそも存在しない。"
+  そもそも存在しない。`:licensed` が音声 1 本だけなのも同じく事実で、
+  ライセンスを受けたのはミックス済みの録音であって素材ではない。"
   {:authored  #{:master-audio :stems :midi :score :session}
    :generated #{:master-audio :stems}
-   :hybrid    #{:master-audio :stems :midi :score :session}})
+   :hybrid    #{:master-audio :stems :midi :score :session}
+   :licensed  #{:master-audio}})
 
 (defn producible-kinds
   "この provenance で実際に納品できる種別の集合。"

@@ -102,3 +102,24 @@
     (is (some #(= :not-held (:problem/type %))
               (commission/validate
                (commission-on cc-by-asset [(rights/right {:kind :master})]))))))
+
+;; --- :licensed provenance -----------------------------------------------------
+
+(deftest licensed-provenance-has-only-the-mixed-audio
+  (testing "ライセンスを受けたのはミックス済みの録音であって素材ではない"
+    (is (= #{:master-audio} (work/producible-kinds :licensed))))
+  (testing "譜面・MIDI・セッション・stem を約束すると落ちる"
+    (let [c (commission/commission
+             {:id "c-1" :client "ほげ" :fee 1
+              :deliverables [:master-audio :stems :midi :score :session]
+              :grants []
+              :work (work/work {:id "dova-x" :provenance :licensed :held-rights []})})
+          problems (commission/validate c)
+          np (first (filter #(= :not-producible (:problem/type %)) problems))]
+      (is (some? np))
+      (is (= #{:stems :midi :score :session} (set (:problem/kinds np)))))))
+
+(deftest licensed-work-needs-no-model-id
+  (testing ":licensed は AI 関与ではないので model-id / 開示文を要求しない"
+    (is (nil? (work/validate-work
+               (work/work {:id "dova-x" :provenance :licensed :held-rights []}))))))
