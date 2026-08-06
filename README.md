@@ -122,6 +122,12 @@ repos; tests here use a synthetic fixture.
 読み替えない。`explain` が理由を人が読める形で返すので、受注が `:not-held` で
 落ちたときにそれを提示できる。
 
+`ongaku.work` の provenance には **`:licensed`**（第三者の録音を license で
+使っている）がある。手元に在るのはミックス済みの音声 1 本なので
+`producible-kinds` は `#{:master-audio}` だけ —— stem も譜面も DAW セッションも
+この studio の手元には無い。**何が実在するか（provenance）と何を渡せるか
+（holdings）は別の問いで、別々に答える。**
+
 ## Occupation
 
 ISCO-08 `2652` (Musicians, Singers and Composers) —
