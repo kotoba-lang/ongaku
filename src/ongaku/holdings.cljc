@@ -41,6 +41,35 @@
          "したがって第三者へ渡せる権利は無い。自分の render に混ぜて使うことは "
          "ongaku.policy の側で別途 gate される。")}
 
+   ;; --- 自分（または自分の fleet）が生成し、公衆ライセンスで出したもの ---------
+   ;;
+   ;; 注意: これらのエントリが答えるのは「**その資産が CC0 で出ていると仮定して**
+   ;; 第三者へ何を渡せるか」であって、「その資産を CC0 で出してよかったか」では
+   ;; ない。後者は生成モデルの出力条項に依存する別の法的判断で、この表は答えない。
+   ;; 実例: gftd-audio-actor は murakumo 生成音源に :cc0 を貼るが、その根拠は
+   ;; どこにも記録されていない（ADR-2608081000 の gap）。
+   :license/cc0
+   {:grantable [{:kind :sync :exclusive? false}]
+    :exclusive-possible? false
+    :checked "2026-08-07"
+    :source-url "https://creativecommons.org/publicdomain/zero/1.0/legalcode"
+    :basis
+    (str "CC0 は著作権を可能な限り放棄する dedication なので、下流は帰属表示なしに"
+         "自由に使える。ただし放棄した権利は**全世界に対して**放棄されているので、"
+         "独占を渡すことは原理的にできない。:grantable を :sync 1 件にしてあるのは"
+         "**受注で操作対象になる権利の保守的な部分集合**であって、CC0 が下流に"
+         "与えるものの全部ではない —— 足りなければ根拠つきで広げること。")}
+
+   :license/public-domain
+   {:grantable [{:kind :sync :exclusive? false}]
+    :exclusive-possible? false
+    :checked "2026-08-07"
+    :source-url "https://creativecommons.org/publicdomain/mark/1.0/"
+    :basis
+    (str "既にパブリックドメインにある著作物。誰の許諾も要らないので下流の利用は"
+         "成立するが、誰も権利を持っていない以上、独占を渡すことはできない。"
+         ":grantable の範囲は :license/cc0 と同じ理由で保守的な部分集合。")}
+
    :license/cc-by-4.0
    {:grantable [{:kind :sync :exclusive? false}]
     :exclusive-possible? false
