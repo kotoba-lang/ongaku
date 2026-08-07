@@ -123,3 +123,24 @@
   (testing ":licensed は AI 関与ではないので model-id / 開示文を要求しない"
     (is (nil? (work/validate-work
                (work/work {:id "dova-x" :provenance :licensed :held-rights []}))))))
+
+;; --- 生成物に貼られる公衆ライセンス ---------------------------------------------
+
+(def cc0-asset {:asset/id "gen-1" :license/id :license/cc0})
+(def pd-asset  {:asset/id "pd-1"  :license/id :license/public-domain})
+
+(deftest public-licences-convey-non-exclusive-use-and-never-exclusivity
+  (doseq [a [cc0-asset pd-asset]]
+    (let [g (holdings/grantable-rights a)]
+      (is (= 1 (count g)) (str (:license/id a)))
+      (is (= :sync (:right/kind (first g))))
+      (is (false? (:right/exclusive? (first g)))))
+    (testing "独占は渡せない（放棄は全世界に対して行われている）"
+      (is (some #(= :not-held (:problem/type %))
+                (commission/validate
+                 (commission-on a [(rights/right {:kind :sync :exclusive? true})])))))))
+
+(deftest cc0-does-not-answer-whether-cc0-was-appropriate
+  (testing "表が答えるのは『CC0 として何を渡せるか』であって『CC0 で出してよかったか』ではない"
+    (is (re-find #"CC0 が下流に" (:basis (holdings/holdings-for-license :license/cc0)))
+        ":grantable が保守的な部分集合であることを basis が明言していること")))
