@@ -16,7 +16,7 @@
 
   この区別は美学の話ではなく**納品できる物が違う**という商売の話で、
   そこを検査するのがこの namespace の仕事。"
-  (:require [clojure.string :as str]))
+  (:require [kotoba.lang.text :as str]))
 
 (def provenances
   {:authored  "人が kami-ongaku-* stack で書いた"
