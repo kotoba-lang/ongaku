@@ -14,7 +14,7 @@
 
   Portable `.cljc` — JVM / ClojureScript / nbb で同じに動く。日付は
   ISO-8601 の文字列として比較する（辞書順 = 時系列順）。"
-  (:require [clojure.string :as str]))
+  (:require [kotoba.lang.text :as str]))
 
 ;; --- 権利の種別 ------------------------------------------------------------
 
