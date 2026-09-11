@@ -142,7 +142,7 @@ ISCO-08 `2652` (Musicians, Singers and Composers) —
 ## Test
 
 ```bash
-clojure -M:test
+kbb -M:test
 ```
 
 ## License
