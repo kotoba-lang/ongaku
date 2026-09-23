@@ -1,5 +1,5 @@
 (ns ongaku.rights-test
-  (:require [clojure.test :refer [deftest is testing]]
+  (:require [kotoba.test :refer [deftest is testing]]
             [ongaku.rights :as rights]))
 
 (def own-master

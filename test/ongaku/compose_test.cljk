@@ -1,5 +1,5 @@
 (ns ongaku.compose-test
-  (:require [clojure.test :refer [deftest is testing]]
+  (:require [kotoba.test :refer [deftest is testing]]
             [ongaku.catalog :as catalog]
             [ongaku.compose :as compose]
             [ongaku.policy :as policy]))

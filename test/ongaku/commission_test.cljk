@@ -1,5 +1,5 @@
 (ns ongaku.commission-test
-  (:require [clojure.test :refer [deftest is testing]]
+  (:require [kotoba.test :refer [deftest is testing]]
             [ongaku.commission :as commission]
             [ongaku.rights :as rights]
             [ongaku.work :as work]))
