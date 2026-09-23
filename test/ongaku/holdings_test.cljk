@@ -1,5 +1,5 @@
 (ns ongaku.holdings-test
-  (:require [clojure.test :refer [deftest is testing]]
+  (:require [kotoba.test :refer [deftest is testing]]
             [ongaku.commission :as commission]
             [ongaku.holdings :as holdings]
             [ongaku.rights :as rights]
