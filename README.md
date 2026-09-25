@@ -142,8 +142,12 @@ ISCO-08 `2652` (Musicians, Singers and Composers) —
 ## Test
 
 ```bash
-kbb -M:test
+kbb -M:test                                              # JVM suite
+kbb --backend sci --classpath src:test test/run_portable.cljk  # portable suite, no JVM
 ```
+
+First run end to end (catalog → plan → refusal → holdings):
+[docs/operator-quickstart.md](docs/operator-quickstart.md).
 
 ## License
 
