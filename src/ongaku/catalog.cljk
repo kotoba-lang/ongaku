@@ -1,6 +1,6 @@
 (ns ongaku.catalog
   (:require [kotoba.lang.edn :as edn]
-            #?(:clj [clojure.java.io :as io])))
+            #?(:clj [kotoba.io :as io])))
 
 (def default-resource "catalog.edn")
 
